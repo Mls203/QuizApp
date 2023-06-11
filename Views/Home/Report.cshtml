@@ -1,0 +1,67 @@
+﻿
+@model QuizApp.Models.tbl_category
+
+@{
+    ViewBag.Title = "report";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+<h2 style="text-align: center; background-color: cadetblue; padding:10px;">Report</h2>
+
+<div class="row mt-5">
+
+    <div class="col-md-6">
+        <table class="table table-striped table-responsive table-bordered ">
+
+            <thead>
+                <tr>
+
+                    <th scope="col">NAME</th>
+                    <th scope="col">Room Name</th>
+                    <th scope="col">Results of Exam</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in (List<QuizApp.Models.tbl_category>)ViewData["CategoryList"])
+                {
+                    <tr>
+
+                        <td>@item.cat_name</td>
+                        <td>@item.cat_encrytped_string</td>
+                        <td>
+                            <button class="btn btn-info btn-sm showresult" id="@item.cat_id">Show Details</button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+<script>
+
+    $(".showresult").on("click", function () {
+
+        var q_id = $(this).attr("id");
+
+
+        $.ajax({
+            url: '@Url.Action("Report", "Home")',
+            type:"POST",
+            data: { id:q_id },
+            success: function (result) {
+                if (result.status == "S") {
+                    window.location.href = '@Url.Action("ResultsExam", "Home")';
+                }
+
+            }
+        });
+    });
+
+
+</script>

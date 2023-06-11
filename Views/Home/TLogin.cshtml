@@ -1,0 +1,59 @@
+﻿﻿@model QuizApp.Models.tbl_admin
+
+@{
+    ViewBag.Title = "TLogin";
+    Layout = "~/Views/Shared/_LayoutPageLogin1.cshtml";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @*if (ViewBag.msg != null)
+        {
+            <h2 class="alert alert-danger" id="msg" style="width: 460px; height: 50px; margin-left: 70px;">@ViewBag.msg</h2>
+        }*@
+
+
+    <div class="form-horizontal" style="width: 420px; height: 230px; margin-left: 70px; padding: 20px; background-color: #f3f3f3">
+
+        <h4><b>Login As Admin</b></h4>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.ad_id, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ad_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ad_name, new { htmlAttributes = new { @placeholder = "Admin1", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ad_name, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ad_pass, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.ad_pass, new { @placeholder = "123456", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ad_pass, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-info" />
+            </div>
+        </div>
+
+    </div>
+}

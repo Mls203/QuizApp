@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />*@
+
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    @*<script src="~/Scripts/jquery-3.6.4.min.js"></script>*@
+    @*<script src="~/Scripts/jquery-3.0.0.min.js"></script>*@
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <title>@ViewBag.Title</title>
+
+
+    <style>
+        body {
+            background-image: url("/Content/img/QuizAppImage1.jpg");
+            background-size: cover;
+            /*    background-position: center;    */
+            /*background-attachment: fixed;*/
+            /*overflow: hidden;*/
+        }
+    </style>
+</head>
+<body>
+
+
+    @if (ViewBag.msg != null)
+    {
+        <h2 class="alert alert-danger" id="msg" style="width: 470px; height: 60px; margin-left: 70px;">@ViewBag.msg</h2>
+    }
+
+
+
+    <div class="row container " style="margin-left: 63px; margin-top:100px">
+        <div class="col-lg-4 col-md-4 col-sm-4 " style="width: 310px; height: 55px; display: flex; justify-content: center; align-items: center;">
+            <strong>@Html.ActionLink("Quiz App", "Index", "Home", new { area = "" }, new { @class = "box", style = "letter-spacing: 1px; font-size:50px;text-decoration:none; color:#f5e202" })</strong>
+        </div>
+    </div>
+
+    <div class="row container " style="margin-left: 56px;">
+        <div class="col-lg-4 col-md-4 col-sm-4 " style="width: 300px; height: 50px; display: flex; justify-content: center; align-items: center;">
+            <strong>@Html.ActionLink("Teacher Login", "TLogin", "Home", new { area = "" }, new { @class = "box ", style = " font-size:16px;text-decoration:none; color:#f5e202; margin-right:50px" })</strong>
+
+            <strong>@Html.ActionLink("Student Login", "SLogin", "Home", new { area = "" }, new { @class = "box", style = " font-size:16px;text-decoration:none; color:#f5e202;" })</strong>
+
+        </div>
+
+
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+
+
+
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#msg").css("display", "none");
+
+            },2000);
+        });
+    </script>
+</body>
+</html>

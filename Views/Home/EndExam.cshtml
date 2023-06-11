@@ -1,0 +1,22 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <title>EndExam</title>
+
+</head>
+<body>
+    <div id="box" style="margin-top:200px">
+        <h1 style="text-align:center;">End Of Examinations !!</h1>
+        <h2 style="text-align:center">Your Score: @TempData["Score"]</h2>
+
+        <a style="text-align:center; margin-left:600px; margin-top:10px;" class="btn btn-default" href="@Url.Action("Index","Home")">Back Home Page </a>
+
+    </div>
+</body>
+</html>

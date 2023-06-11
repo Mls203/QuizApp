@@ -1,0 +1,139 @@
+﻿@model IEnumerable<QuizApp.Models.tbl_questions>
+
+@{
+    ViewBag.Title = "ViewAllQuestions";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
+}
+
+<h2>ViewAllQuestions</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.q_text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QCorrectAns)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbl_category.cat_name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.q_text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QCorrectAns)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tbl_category.cat_name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.q_id }, new { @class = "btn btn-warning edit", data_toggle = "modal", data_target = "#exampleModal", id = item.q_id, @style = "padding:3px;" })
+                <button class="btn btn-danger delete" style="padding:3px;" data-id="@item.q_id">Delete</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="" id="EditBody" style="margin-top:20px; padding:20px;">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(".edit").on("click", function () {
+        var q_id = $(this).attr("id");
+        //alert(q_id);
+        $.ajax({
+            url: '@Url.Action("Edit","Home")',
+            type:"POST",
+            data: { q_id:q_id },
+            success: function (result) {
+                console.log(result);
+                $("#EditBody").html(result);
+            }
+        });
+    });
+
+     $(".delete").on("click", function () {
+         var q_id = $(this).attr("data-id");
+       // alert(q_id);
+           Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            canselButtonColor:'#d33',
+            confirmButtonColor: '#3085d6',
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                 $.ajax({
+                    url: '@Url.Action("Delete","Home")',
+                    type:"post",
+                    data: { q_id:q_id },
+                    success: function (result) {
+                        console.log(result);
+
+                        //Swal.fire(
+                        //    'Deleted!',
+                        //    'Your file has been deleted.',
+                        //    'success'
+
+                        //)
+
+                        if (result.status == "S") {
+
+                              window.location.href='@Url.Action("ViewAllQuestions", new {id= Session["q_fk_catid"].ToString() })';
+
+                        }
+
+                    }
+                });
+            }
+        });
+    });
+</script>
